@@ -1,0 +1,276 @@
+WinRod
+
+v. 1.84
+There is a long list of bug fixes and corrections.
+In this version:
+- is possible to save curves and data from 2d graphs
+- in 3D lasso selection an error responsible for instability is removed
+- the transform matrix for 3D view is extended for all crystallographics systems monoclinic and threeclininc
+- There is also extension to the rughness modeling for multilayers. This one needs more explanation but really well
+
+
+
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+v. 1.27
+
+-code cleaning,
+-WinRod.cpp is now divided on Scene3d.cpp and GaussBlur.cpp for clarity of the code,
+-Graphics of residuals window greatly improved,
+-Calc.cpp optymised, added full memory menagement (it is now dynamic),
+-number of data increased to 20000,
+-Corrected content in editbox in above window
+
+v. 1.28
+-general 2D graphics improvement
+-code cleaning even more Scene3d.cpp, and WinRod.cpp
+-added setting window for electron density profile
+-dymamic changes of button settings in 2D windows (no more problem with eg. lin/log settings and button states)
+
+v. 1.29
+-it is possible now to set different colors for 2D windows
+-Added open function in 2D windows to read data and curves
+-Curves and data readed from 2D menu can be changed from open dat and open curv dialog boxes.
+-Rod curves/data can be added to storage curves/data with add curve, add dat buttons in 2D windows menu 
+-several small code corrections
+
+v. 1.30
+-Update all windwos from silder in real time
+-added symbols in 2D window for data
+-added extended editing mechanism for atop properties table
+-added different styles for curves in 2D windows
+-corrected bug with rod 0 0 in main menu rod list
+-improved mechanism for curve and data selection window
+-reduced number of curves in electron density profile window (it is now 1)
+
+v. 1.31
+-Toolbar in 2D window divided on top one and side one
+-solved problem with multiple windows of fourier transform
+-set the limit in zoom for in-plane graph (size of data points)
+ 
+v. 1.32
+-automatic version update from file
+-not used buttons in 2D window are disabled
+
+v. 1.33
+-small improvements
+
+v. 1.34
+-Implementation of Elias elemens.fat file with user scattering factors (a bit in my way)
+-Improvements in the elements.cpp code
+-Correction in 2D plot edit curve and date delete all. Now the elements from list are deleted after pusch the button
+-Added R crystallographics factor
+-improved domains dialog box
+-added subscale
+-rearanged fitting wndow and sliders window, removed scale 2
+-Readfile ->read data, flags (LBRAG, SUBSCALE, ENERGY) are readed like in new ROD standard
+-In settings possible selection between different errors calculation methods
+-Added results to ResultsWindow (values and errors)
+-solved problem with lasso selection method in 3D
+
+v. 1.35
+-Improvments in tables menagemen, now they works similar to excel (all edit and fitting)
+-3D scene divided on smaller functions, the code is more clear now
+-Full implementation of organic molecules with different types of molecules on the surface. The limit for maximum number of different molecules is set to 10 but can be  increased. All rotations around x, y, z are independed like displacement parameters
+-The atomic scattering factors can be updatet any time. The file elements.fat can be readed (it gives the option to see the real effect of e.g. iones on the fit goodnes)
+-Added perspective on/off in 3D
+-improved performance
+-Small acceleration in q_lenght function in calc.cpp
+-Small acceleration in 3D
+-Code cleaning nad renaming
+-Corrected WinRod initialisation
+
+v. 1.36
+-Implementation of dispersion with separate  real and imaginary parts (exact)
+-Implementation of data near Bragg error increase (exact)
+-Implementation of data flags like in Elias version (exact)
+-Improvment of other edit windows
+-Corrected in-plane and rods calculation algoritm (small bug) 
+-Implemented 	Z2CONST[MAXATOMS], NZ2DIS[MAXATOMS];
+
+v. 1.37
+-Added dispersion coefficients calculator with plot option
+-The f' and f" coeficients can be calculated for elements based on energy for given serial energy number
+-Added sorting and plotting for rods measured with different energies
+
+v. 1.38
+-Added multiplot with all functions like printing and save. Multiplot is refresched after any oeration, is scalable and the arrangement can be set completly by user ee.g.nr of columns, number of points per curve, and the rods can be selected. Those informations are storedin WinRod ini.
+-Repaired resizing and saving function for windows 
+
+v. 1.39
+-Add printing 
+
+v. 1.40
+-corrections for chi printing map
+-small improvements
+
+v. 1.41
+-Added VFSR settings from task bar
+-Solved bug for win 7
+-Saving VFSR settings to WinRod-init.mac
+-Changed reannealinf from 300 to 100. It gives better results and ASA is faster
+
+v. 1.42
+-Added multithreading for loops
+
+v. 1.43
+-Solved bug which was causing instability 
+
+v. 1.44
+-Corrected problem with readed tata points after applying multithreading. They were readed randomly (ugly grpahs)
+-Solved bug with macro fit functions. Now loops and all fit functions works corectly
+-According to Nikolay the file extensions belonging to WinRod in open dialog box are all displayed
+-The problem with multiplot on some oldest versions of windows is not solved.
+
+v. 1.45
+-Solved bug with multiplot. Content of the window was not shown on some machines (memory problem)
+-Improved threading mechanism in fit rutine
+-Added thread pririty the highest
+-Added comments in the code
+
+v. 1.46
+-Solved all bugs with fit_edit for organic molcules (it is different than normal fit_edit for atoms)
+-Rearanged settings windows
+-Memory settings for calc moved completly to class calc.
+-Copy to clipobard also 3D scene
+
+v. 1.47
+-Check all new memory declaration to zero memory
+-Added all WinRod file association with WinRod. They can be started by clicking from Explorer or command line the trick is to start WinRod.exe [patch to file]
+-Added support for saving file containing fit results task menu Open->Open
+
+v 1.48-1.50
+-Changes in 3D ingine, is faster, solved problem with stick mode, now all bonds are shown
+-multiplot solved small isue with graph resolution
+-solved small problem with menu for ROD ploting window after absorbtion coefitients presentation (buttons disapear)
+-improved icons for Windows
+
+v. 1.51
+-Corrected bug with multiplot button (restore button had no action)
+-Improved windows menagement (still needs some work but is much better)
+-Solved problem with DX window crasch after restoring from minimalisation state
+
+v. 1.52
+-fixed bug with mulitenergies multiplot
+-code clearer
+-small improvements
+-fill combo with rods at hot start
+
+v. 1.53
+-solved problem with hot start when the fit result file can't be opened
+-corrected auto scaling for In-plane graph
+-added save h start, h end, k start, k end, l start, l end, these values are stored now in winrod ini file
+-cleaned code, hardly rearanged, parts from rod are in files from rod
+-beter described code, added definitions for better orientation, mostly 2D plot
+-repleased all TCHAR with WCHAT, it can cost some problems
+-code checked with special tools for t initialized variables, now it is ok
+-code checked for memory safety it is now ok, problem only with levenberg memory declarations and cleaning
+-some varnings with stack oversize 4kB, program in this case uses virtual stack 1MB
+-solved small isue with fnctions compatybility, api compatybility and so on, cleaned not used arguments
+-added extension to set real to dialog boxes, now the format can be specified as an argument
+
+v. 1.54
+-Corrected bug with wrong position of unit cell frame in 3D
+-Added deafoult view from a, b and c direction
+-added text "No coordinates available" if bul, fit or sur files are not readed
+-solved a problem with resizing 3D window at WinRod closing. The windows sizes are saved in WinEodInit only when exited by file->exit
+-small code rearangement in camera.cpp and Scene3D
+
+v. 1.55
+-Added full suport for surface 1 and 2 also for 3D graphics
+-delete 3D atoms with delete key after atom selection
+
+v. 1.56
+-improved windows mechanism
+
+
+v. 1.57, 1.58
+-Solved problem with crashing 3D window completly
+-Added default button to ASA settings
+-Corrected windows size problem
+-Added Windows to menu bar. Windows can be now arranged
+-When 3D window is closed the 3D scene is not calculated
+-Closed windows are not displayed on startup, correct records inn WinRod ini
+-Corrected typos in menu
+-added multiple dot to read mechanism. so files with multiple dots can be read properly
+-correct mesages are now displayed on the status bar like: readed dat, fit bul files
+
+v. 1.59, 1.60, 1.61
+-Solved problems with FileEdit window, Add and remove atoms
+-solved problem with the bulk file (the DW were 0 the program crased)
+-small 3D improvement
+
+v. 1.63
+-changes in settings 3D no buttons only color tables one click
+-solved bug with no symetry 
+-corrected numerical roughness implementation (bug with code translation) and optymalisation
+
+v. 1.64
+-improved scale and marks in 2D window
+-added extra style to windows arrangement
+-corrected dihedral angle calculations in 3D
+-added autorotation after fast move in 3D
+-added options3D
+-removed memory leak from calc.cpp
+-corrected bug with DISPTOT related to NZ2DIS
+-added liquid profile, strong modyfication ( It speed up the fitting even if the liquid profie is not set)
+-hot loop modyfication, it is now lighter and thus faster
+-sliders; if up limit minus low limit is zero than the slider is invisible
+-added combo box in settings for coherent domains
+-extended and improved status bar in 2D rod and in plane
+-added button in edit data to find LBragg and fractional flags automatically based on  phase changes and structure factors from bulk file
+-added save, print, copy in chi^2 window
+
+v. 1.64
+-code optymalisation and symplification, cleaning
+
+v. 1.65
+-Added threading for 3D scene, the 3D calculations are now completly separated from atomic sufrace calculations
+-solved problem with memory leak, responsible for instabilities
+
+v. 1.66
+-Code optymalisation, and symplification, 3D scee is now in one class, rest of the 3D clases, Camera, Measure and Lasso are inherited
+-corected smal bug with sliders DW value
+-added critical sections
+-corrected small bug in 3D settings when no model is read
+-corrected close mechanism or 3D window since it is in a thread
+-light calculations corrected
+-liquid layers corected after threading 3D implementation
+
+v. 1.67 
+-Solved all problems with threading 3D support and operations
+-Added selections of antyaliasing in 3D settings
+-Chi sqr window removed bug for multi core procesor calculations
+
+
+v. 1.68-1.69 
+-3D windows thread memory semaration from main memory program
+
+v. 1.70
+-Changes in fit file - code simplification related to pointers copy
+
+v. 1.71
+-removed meory leak from 3D DirectX
+
+v. 1.72
+-improved undo redo it is now with helper describing the tasks
+-added context menu to 2D graphs
+-rebuild 3D structure now is d3_helper class
+-Added office like scale settings for 2D graphs with right button click context menu
+-solved problem with thread stability for fit threading
+-solved problem with 3D thread stability when thread priorrity was chagned.
+-corrected dialog boxes when wrong walues are entered, now windows are not closed 
+
+v 1.73
+-Extendension of scale and title for 2D
+-small improvements
+-correction of lasso, protection of memory access (selection matrix)
+
+v 1.74-1.77
+-stability corrections
+
+v 1.78
+-added file formats for 2D graphics, (text containing h,k,l F theoretical, F data, sigma)
+-VS2015 compilation, so you need new VS2015 redistributables for this compiler
+
+v 1.79
+-grid button correction
