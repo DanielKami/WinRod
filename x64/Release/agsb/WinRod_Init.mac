@@ -1,0 +1,47 @@
+!Go to set calculate menu 
+set calculate     
+structure    yes   
+lstart      -5.0000   
+lend         5.0000   
+npoints      800   
+atten        0.001000 
+beta         0.000000 
+lbragg       0.000000 
+nlayers      1  
+scale        0.597093 
+scale2       0.000000 
+sfraction    1.000000 
+fractional  no     
+bul_fractional  no 
+z_mean       0.000000 
+sigma        1.000000 
+rough        approx 
+return return 
+
+!Go to set symmetry menu 
+set symmetry p31m return return 
+!Go to set domain menu 
+set domain 
+ndomain      1 
+matrix       1   1.0000   0.0000   0.0000   1.0000 
+fractional   no 
+equal        yes 
+coherent     no 
+return return 
+
+
+!Go to windows settings
+windows_set     1 10 33 744 144 yes 
+windows_set     2 754 33 1600 546 yes 
+windows_set     3 198 178 744 490 yes 
+windows_set     4 0 0 0 0 yes 
+windows_set     5 199 521 743 835 yes 
+windows_set     6 713 579 1204 839 yes 
+windows_set     7 1143 579 1600 840 yes 
+windows_set     8 1164 579 1605 839 yes 
+windows_set     9 9 290 189 835 yes 
+windows_set     10 9 177 187 273 yes 
+windows_set     11 9 177 187 273 yes 
+!Go to set fit menu
+Procesor_cores 1
+

@@ -1,0 +1,4 @@
+Fit number #1
+Time: 1703 ms Chsqr= 2.7290 exit_code:Chi^2 with the same value repeated maximum times.
+Fit number #2
+Time: 1375 ms Chsqr= 2.7290 exit_code:Chi^2 with the same value repeated maximum times.

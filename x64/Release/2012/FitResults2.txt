@@ -1,0 +1,21 @@
+Fit number #1
+TempRatioScale: 1.2e-007  TempAnnScale: 600.0000  CostParamScale: 0.8500 AcceptToGenRatio: 1e-011 DeltaX: 1e-006 InitParTemp:    2 TESTING_FREQUENCY_MODULUS 130
+
+ ________________________________________________________________
+#Parameter           #Value    #Low lim.   #Up lim.  #Fixed
+________________________________________________________________
+scale               0.255214      0.000      1.000   yes
+subscale     1     18.534221      0.000     33.000   yes
+beta                0.008608      0.000      1.000   yes
+sfraction           1.000000      0.000      0.000   no
+displace     1      0.000140      0.000      0.200   yes
+displace     2      0.000728     -0.500      0.200   yes
+b1           1      0.700000      0.000      0.000   no
+b1           2      3.694133      0.500     30.000   yes
+b2           1      1.422100      1.000      5.000   yes
+occupancy    1      1.000000      0.000      1.000   yes
+
+dispersion Bi  0   0.0000   0.0000
+dispersion Cu  0   0.0000   0.0000
+rough approx. beta
+Time: 2312 ms Chsqr= 2.7290 exit_code:Chi^2 with the same value repeated maximum times.

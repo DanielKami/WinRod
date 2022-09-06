@@ -1,0 +1,28 @@
+
+set
+indexh 1
+indexk 1
+indexl 0.2
+
+read fat elements.fat
+read fit agsb.fit
+read bul ag111.bul
+read dat agsb.dat
+read par agsb.par
+
+set domain 
+ndomain      1 
+matrix       1   1.0000   0.0000   0.0000   1.0000 
+
+!Go to multiplot
+Multiplot 9 2 250 
+Multiplot_select 0 yes 
+Multiplot_select 1 yes 
+Multiplot_select 2 no 
+Multiplot_select 3 no 
+Multiplot_select 4 yes 
+Multiplot_select 5 yes 
+Multiplot_select 6 no 
+Multiplot_select 7 no 
+Multiplot_select 8 no 
+

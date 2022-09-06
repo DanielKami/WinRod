@@ -1,0 +1,66 @@
+
+set
+indexh 1
+indexk 1
+indexl 0.2
+
+lstart      -6.0000   
+lend         6.0000   
+npoints      800   
+atten        0.001000 
+beta         0.000000 
+lbragg		 3
+nlayers      3  
+
+
+read fit 2012_.fit
+read bul 2012_.bul
+read dat 2012_.dat
+read par 2012_.par
+
+
+!Go to set symmetry menu 
+set symmetry (null) return return 
+!Go to set domain menu 
+set domain 
+ndomain      3 
+matrix       1   1.0000   0.0000   0.0000   1.0000 
+matrix       2  -0.5000   0.7500  -1.0000  -0.5000 
+matrix       3  -0.5000  -0.7500   1.0000  -0.5000 
+fractional   no 
+equal        yes 
+coherent     no 
+return return 
+
+
+!Go to multiplot
+Multiplot 28 2 250 
+Multiplot_select 0 yes 
+Multiplot_select 1 no 
+Multiplot_select 2 no 
+Multiplot_select 3 yes 
+Multiplot_select 4 no 
+Multiplot_select 5 no 
+Multiplot_select 6 yes 
+Multiplot_select 7 yes 
+Multiplot_select 8 no 
+Multiplot_select 9 no 
+Multiplot_select 10 yes 
+Multiplot_select 11 no 
+Multiplot_select 12 no 
+Multiplot_select 13 yes 
+Multiplot_select 14 no 
+Multiplot_select 15 no 
+Multiplot_select 16 no 
+Multiplot_select 17 no 
+Multiplot_select 18 no 
+Multiplot_select 19 no 
+Multiplot_select 20 no 
+Multiplot_select 21 no 
+Multiplot_select 22 no 
+Multiplot_select 23 no 
+Multiplot_select 24 no 
+Multiplot_select 25 no 
+Multiplot_select 26 no 
+Multiplot_select 27 no 
+

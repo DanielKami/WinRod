@@ -1,0 +1,282 @@
+//--------------------------------------------------------------------------------------
+// v. 3
+// File: BasicHLSL.fx
+//
+// The effect file for the BasicHLSL sample.  
+// 
+// Copyright (c) Microsoft Corporation. All rights reserved.
+//--------------------------------------------------------------------------------------
+
+//--------------------------------------------------------------------------------------
+// Global variables
+//--------------------------------------------------------------------------------------
+
+float3   ObsPositionV;				//Position of observer
+float4   LightPosition;						//Position of sun
+float3	 ObsPosition;				//eye position
+
+float4   g_ObiectColor;             // Light's ambient color
+float4   g_LightAmbient;             // Light's ambient color
+float4   g_LightObserver;            // Light's observer color
+
+float4x4 g_mWorld;					 // World matrix for object
+float4x4 g_mRotate;                  // rotation camera matrix for object
+float4x4 g_mWorldViewProjection;	 // World * View * Projection matrix
+
+//specular section
+float g_Shininess = 20;
+
+float4 g_LightColor;
+float4 SpecularColor;  
+float g_SpecularIntensity = 3;
+
+//--------------------------------------------------------------------------------------
+// Texture samplers
+//--------------------------------------------------------------------------------------
+texture colorMapTexture;
+sampler2D colorMap = sampler_state
+{
+	Texture = <colorMapTexture>;
+    MagFilter = Linear;
+    MinFilter = Anisotropic;
+    MipFilter = Linear;
+    MaxAnisotropy = 16;
+	AddressU = Clamp;
+    AddressV = Clamp;
+};
+
+ 
+////////////////////////////////////////////////////
+struct VS_INPUT
+{
+	float4 vPos       : POSITION; 
+    float3 Normal     : NORMAL;
+	float2 vTexCoord0 : TEXCOORD0;
+};
+////////////////////////////////////////////////////
+//--------------------------------------------------------------------------------------
+// Vertex shader output structure
+//--------------------------------------------------------------------------------------
+struct VS_OUTPUT
+{
+    float4 Position			: POSITION0;	// vertex position 
+   	float3 Normal			: TEXCOORD0;	//added
+    float3 viewDirection	: TEXCOORD2;
+	float4 lightDir			: TEXCOORD3;
+	float2 TextureUV		: TEXCOORD4;	// vertex texture coords 
+};
+
+
+//--------------------------------------------------------------------------------------
+// This shader computes standard transform and lighting
+//--------------------------------------------------------------------------------------
+VS_OUTPUT RenderSceneVS( VS_INPUT input,
+                         uniform int nNumLights,
+                         uniform bool bTexture,
+                         uniform bool bAnimate )
+{
+    VS_OUTPUT Output;
+
+	float4 worldPosition;
+	float4 sunPosition;
+	float4 ObserverPosition;
+	
+	float4x4 g_mWorldRotate = mul(g_mWorld, g_mRotate);
+
+    // Transform the position from object space to homogeneous projection space on the screen
+    Output.Position = mul(input.vPos,  g_mWorldViewProjection );
+
+    // Transform the normal from object space to world space with camera rotation    
+
+    Output.Normal   =  normalize( mul(input.Normal,   (float3x3) g_mWorldRotate) );
+
+	sunPosition = LightPosition;//		mul(LightPosition, g_mRotate); //sun position
+	ObserverPosition =	mul(ObsPositionV, g_mRotate); //for small light at the observer position
+
+	worldPosition =		mul(input.vPos, g_mWorldRotate ); //object position
+	Output.viewDirection =  normalize( worldPosition - ObsPosition );
+	
+	Output.lightDir = sunPosition - worldPosition;  
+	Output.lightDir = normalize(Output.lightDir); 
+
+	// Just copy the texture coordinate through
+	Output.TextureUV = input.vTexCoord0;
+    return Output;    
+}
+
+//--------------------------------------------------------------------------------------
+// This shader computes standard transform and lighting
+//--------------------------------------------------------------------------------------
+VS_OUTPUT RenderSceneSimpleVS( VS_INPUT input,
+                         uniform int nNumLights,
+                         uniform bool bTexture,
+                         uniform bool bAnimate )
+{
+    VS_OUTPUT Output;
+
+	float4 worldPosition;
+	float4 sunPosition;
+	float4 ObserverPosition;
+	
+	float4x4 g_mWorldRotate = mul(g_mWorld, g_mRotate);
+
+    // Transform the position from object space to homogeneous projection space on the screen
+    Output.Position = mul(input.vPos,  g_mWorldViewProjection );
+
+    // Transform the normal from object space to world space with camera rotation    
+
+    Output.Normal   =  normalize( mul(input.Normal,   (float3x3) g_mWorldRotate) );
+
+	sunPosition = LightPosition;//		mul(LightPosition, g_mRotate); //sun position
+	ObserverPosition =	mul(ObsPositionV, g_mRotate); //for small light at the observer position
+
+	worldPosition =		mul(input.vPos, g_mWorldRotate ); //object position
+	Output.viewDirection =  normalize( worldPosition - ObsPosition );
+	
+	Output.lightDir = sunPositionl - worldPosition;  
+	Output.lightDir = normalize(Output.lightDir); 
+
+	// Just copy the texture coordinate through
+	Output.TextureUV = input.vTexCoord0;
+    return Output;    
+}
+
+
+//--------------------------------------------------------------------------------------
+// Pixel shader output structure
+//--------------------------------------------------------------------------------------
+struct PS_OUTPUT
+{
+    float4 RGBColor : COLOR0;  // Pixel color    
+};
+
+
+
+//--------------------------------------------------------------------------------------
+// This shader outputs the pixel's color by modulating the texture's
+//       color with diffuse material color
+//--------------------------------------------------------------------------------------
+float4 RenderSceneTexturePS( VS_OUTPUT In  ) : COLOR0
+{
+
+	float3 bumpNormal = normalize(In.Normal);
+
+	// Calculate the diffuse light component with the bump map normal
+	float lightIntensity1 = dot(bumpNormal, (float3)In.lightDir)*0.8f;
+	if (lightIntensity1 < 0.)
+		lightIntensity1 = 0.;
+
+	// Calculate the specular light component with the bump map normal
+	float3 r = normalize(2. * bumpNormal * lightIntensity1 - (float3)In.lightDir);
+	float dotProduct = dot(r, In.viewDirection);
+
+	//calculate specular light
+	float4 specular1 = g_SpecularIntensity * SpecularColor * max(pow(dotProduct, g_Shininess), 0);
+
+		// Calculate the texture color
+		float4 textureColor = tex2D(colorMap, In.TextureUV);
+
+	// Combine all of these values into one
+	return textureColor * (g_ObiectColor * g_LightColor + specular1)* lightIntensity1
+		+ g_ObiectColor *g_LightAmbient;
+
+}
+
+//--------------------------------------------------------------------------------------
+// This shader outputs the pixel's color by modulating the light
+//       color with diffuse material color
+//--------------------------------------------------------------------------------------
+float4 RenderScenePS(VS_OUTPUT In) : COLOR0
+{
+
+	float3 bumpNormal = normalize(In.Normal);
+
+	// Calculate the diffuse light component with the bump map normal
+	float lightIntensity1 = dot(bumpNormal, (float3)In.lightDir)*0.8f;
+	if (lightIntensity1 < 0.)
+		lightIntensity1 = 0.;
+
+	// Calculate the specular light component with the bump map normal
+	float3 r = normalize(2. * bumpNormal * lightIntensity1 - (float3)In.lightDir);
+		float dotProduct = dot(r, In.viewDirection);
+
+	//calculate specular light
+	float4 specular1 = g_SpecularIntensity * SpecularColor * max(pow(dotProduct, g_Shininess), 0);
+
+	// Combine all of these values into one
+	return (g_ObiectColor * g_LightColor + specular1)* lightIntensity1
+				 + g_ObiectColor *g_LightAmbient;
+
+
+}
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//                                        Techniques
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//-----------------------------------------------------------------------------
+// Technique: RenderSky
+// Desc: Renders the shadow map
+//-----------------------------------------------------------------------------
+technique BlendWithTexture
+{
+	pass p0
+	{
+		AlphaBlendEnable = TRUE;
+		DestBlend = INVSRCALPHA;
+		SrcBlend = SRCALPHA;
+		VertexShader = compile vs_2_0 RenderSceneVS(1, true, true);
+		PixelShader = compile ps_2_0 RenderSceneTexturePS();
+		CullMode = None;//rander both sides
+	}
+}
+
+//-----------------------------------------------------------------------------
+// Technique: RenderSky
+// Desc: Renders the shadow map
+//-----------------------------------------------------------------------------
+technique Blend
+{
+    pass p0
+    {
+		AlphaBlendEnable = TRUE;
+        DestBlend = INVSRCALPHA;
+        SrcBlend = SRCALPHA;
+        VertexShader = compile vs_2_0 RenderSceneVS( 1, true, true );
+        PixelShader = compile ps_2_0 RenderScenePS();
+		CullMode = None;//rander both sides
+	}
+}
+
+//-----------------------------------------------------------------------------
+// Technique: RenderSky
+// Desc: Renders the shadow map
+//-----------------------------------------------------------------------------
+technique NoBlend
+{
+    pass p0
+    {
+		AlphaBlendEnable = FALSE;
+        VertexShader = compile vs_2_0 RenderSceneVS( 1, true, true );
+        PixelShader = compile ps_2_0 RenderScenePS();
+		CullMode = None;//rander both sides
+	}
+}
+
+//-----------------------------------------------------------------------------
+// Technique: RenderSky
+// Desc: Renders the shadow map
+//-----------------------------------------------------------------------------
+technique Simple
+{
+    pass p0
+    {
+		AlphaBlendEnable = FALSE;
+        VertexShader = compile vs_2_0 RenderSceneSimpleVS( 1, true, true );
+        PixelShader = compile ps_2_0 RenderScenePS();
+		CullMode = None;//rander both sides
+	}
+}

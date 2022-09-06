@@ -1,0 +1,86 @@
+!Go to set calculate menu 
+set calculate     
+structure    yes   
+hstart      -5.0000   
+hend         5.0000   
+kstart      -5.0000   
+kend         5.0000   
+lstart       0.0000   
+lend         8.0000   
+npoints      800   
+atten        0.001000 
+beta         0.000000 
+lbragg     5 
+nlayers      1  
+scale        0.001600 
+sfraction    1.000000 
+s2fraction    0.300000 
+fractional  no     
+bul_fractional  yes 
+z_mean       0.000000 
+sigma        0.000000 
+rough        approx 
+return return 
+
+!Go to set symmetry menu 
+set symmetry  return return 
+!Go to set domain menu 
+set domain 
+ndomain      1 
+matrix       1   1.0000   0.0000   0.0000   1.0000 
+fractional   no 
+equal        yes 
+coherent     no 
+return return 
+LSQ_ERRORCALC   CHISQR 
+
+
+!Go to windows settings
+windows_set     1 121 53 585 363 yes 
+windows_set     2 130 292 594 1198 yes 
+windows_set     3 731 67 1514 615 yes 
+windows_set     4 355 33 1301 965 yes 
+windows_set     5 560 29 1506 961 yes 
+windows_set     6 560 29 1506 961 yes 
+windows_set     7 12 643 540 1005 yes 
+windows_set     8 12 643 540 1005 yes 
+windows_set     9 1502 1 1686 900 yes 
+windows_set     10 1075 1 1686 335 yes 
+windows_set     11 845 1 1503 481 yes 
+
+
+!Go to windows color settings
+Window_colors  0   11927035 14481914 14474460 
+
+Window_colors  1   14155775 16766935  4194432 
+Window_colors  2   15263999 16756912  4194304 
+Window_colors  3   16770790 16764622  4194368 
+Window_colors  4   15137530 16119290        0 
+Window_colors  5   13434879 16759739        0 
+
+
+!Go to set fit menu
+Procesor_cores 8
+
+Priority THREAD_PRIORITY_NORMAL
+
+!Go to set fit asa menu
+TEMPERATURE_RATIO_SCALE 8.9e-08
+COST_PARAMETER_SCALE  0.84
+ACCEPTED_TO_GENERATED_RATIO 1.0e-11
+INITIAL_PARAMETER_TEMPERATURE 2.0e+00
+LIMIT_ACCEPTANCES 6040
+TESTING_FREQUENCY_MODULUS 130
+
+Fit_file 1 FitResults.txt no
+
+
+!Go to multiplot
+Multiplot 7 3 312 
+Multiplot_select 0 yes 
+Multiplot_select 1 yes 
+Multiplot_select 2 yes 
+Multiplot_select 3 yes 
+Multiplot_select 4 yes 
+Multiplot_select 5 yes 
+Multiplot_select 6 yes 

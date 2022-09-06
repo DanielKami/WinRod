@@ -1,0 +1,19 @@
+Ag(111)-sqrt3xsqrt3-Sb
+________________________________________________________________
+#Parameter           #Value    #Low lim.   #Up lim.  #Fixed
+________________________________________________________________
+scale               0.581700      0.050      5.000   yes
+beta                0.000000      0.000      1.000   no
+sfraction           1.000000      0.000      0.000   no
+displace     1     -0.009400     -0.100      0.100   yes
+displace     2      0.010600     -0.100      0.100   yes
+displace     3      0.000000      0.000      0.000   no
+b1           1      0.660000      0.000      1.000   no
+b1           2      1.145400      0.000      5.000   yes
+b2           1      7.223800      0.000     11.000   yes
+occupancy    1      0.932500      0.000      1.000   yes
+
+dispersion Ag  0   0.0000   0.0000
+dispersion Sb  0   0.0000   0.0000
+rough approx
+liquid_profile  no

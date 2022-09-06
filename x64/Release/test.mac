@@ -1,0 +1,20 @@
+
+set
+indexh 1
+indexk 1
+indexl 0.2
+
+TEMPERATURE_RATIO_SCALE 1.0E-7
+TEMPERATURE_ANNEAL_SCALE 1000
+COST_PARAMETER_SCALE 0.2
+ACCEPTED_TO_GENERATED_RATIO 1.0E-9
+INITIAL_PARAMETER_TEMPERATURE 10
+DELTA_X 1.0E-7
+
+read fit agsb.fit
+read bul ag111.bul
+read dat test.dat
+
+read par agsb.par
+fit loop 10
+fit asa
